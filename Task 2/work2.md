@@ -1,1 +1,0 @@
-# This is the Task 2 for CodSoft Intership
