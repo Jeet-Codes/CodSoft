@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ministore</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+  </head>
+  <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <title>Search</title>
+        <path fill="currentColor" d="M19 3C13.488 3 9 7.488 9 13c0 2.395.84 4.59 2.25 6.313L3.281 27.28l1.439 1.44l7.968-7.969A9.922 9.922 0 0 0 19 23c5.512 0 10-4.488 10-10S24.512 3 19 3zm0 2c4.43 0 8 3.57 8 8s-3.57 8-8 8s-8-3.57-8-8s3.57-8 8-8z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="user" viewBox="0 0 16 16">
+        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="cart" viewBox="0 0 16 16">
+        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </symbol>
+      <svg xmlns="http://www.w3.org/2000/svg" id="chevron-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+      </svg>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="chevron-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="cart-outline" viewBox="0 0 16 16">
+        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="quality" viewBox="0 0 16 16">
+        <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z" />
+        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="price-tag" viewBox="0 0 16 16">
+        <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z" />
+        <path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="shield-plus" viewBox="0 0 16 16">
+        <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z" />
+        <path d="M8 4.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V9a.5.5 0 0 1-1 0V7.5H6a.5.5 0 0 1 0-1h1.5V5a.5.5 0 0 1 .5-.5z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="star-fill" viewBox="0 0 16 16">
+        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="star-empty" viewBox="0 0 16 16">
+        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="star-half" viewBox="0 0 16 16">
+        <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="quote" viewBox="0 0 24 24">
+        <path fill="currentColor" d="m15 17l2-4h-4V6h7v7l-2 4h-3Zm-9 0l2-4H4V6h7v7l-2 4H6Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="facebook" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="youtube" viewBox="0 0 32 32">
+        <path fill="currentColor" d="M29.41 9.26a3.5 3.5 0 0 0-2.47-2.47C24.76 6.2 16 6.2 16 6.2s-8.76 0-10.94.59a3.5 3.5 0 0 0-2.47 2.47A36.13 36.13 0 0 0 2 16a36.13 36.13 0 0 0 .59 6.74a3.5 3.5 0 0 0 2.47 2.47c2.18.59 10.94.59 10.94.59s8.76 0 10.94-.59a3.5 3.5 0 0 0 2.47-2.47A36.13 36.13 0 0 0 30 16a36.13 36.13 0 0 0-.59-6.74ZM13.2 20.2v-8.4l7.27 4.2Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="twitter" viewBox="0 0 256 256">
+        <path fill="currentColor" d="m245.66 77.66l-29.9 29.9C209.72 177.58 150.67 232 80 232c-14.52 0-26.49-2.3-35.58-6.84c-7.33-3.67-10.33-7.6-11.08-8.72a8 8 0 0 1 3.85-11.93c.26-.1 24.24-9.31 39.47-26.84a110.93 110.93 0 0 1-21.88-24.2c-12.4-18.41-26.28-50.39-22-98.18a8 8 0 0 1 13.65-4.92c.35.35 33.28 33.1 73.54 43.72V88a47.87 47.87 0 0 1 14.36-34.3A46.87 46.87 0 0 1 168.1 40a48.66 48.66 0 0 1 41.47 24H240a8 8 0 0 1 5.66 13.66Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="instagram" viewBox="0 0 256 256">
+        <path fill="currentColor" d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="linkedin" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="nav-icon" viewBox="0 0 16 16">
+        <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="close" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="navbar-icon" viewBox="0 0 16 16">
+        <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
+      </symbol>
+    </svg>  
+
+    <div class="search-popup">
+        <div class="search-popup-container">
+
+          <form role="search" method="get" class="search-form" action="">
+            <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value="" name="s" />
+            <button type="submit" class="search-submit"><svg class="search"><use xlink:href="#search"></use></svg></button>
+          </form>
+
+          <h5 class="cat-list-title">Browse Categories</h5>
+          
+          <ul class="cat-list">
+            <li class="cat-list-item">
+              <a href="#" title="Mobile Phones">Mobile Phones</a>
+            </li>
+            <li class="cat-list-item">
+              <a href="#" title="Smart Watches">Smart Watches</a>
+            </li>
+            <li class="cat-list-item">
+              <a href="#" title="Headphones">Headphones</a>
+            </li>
+            <li class="cat-list-item">
+              <a href="#" title="Accessories">Accessories</a>
+            </li>
+            <li class="cat-list-item">
+              <a href="#" title="Monitors">Monitors</a>
+            </li>
+            <li class="cat-list-item">
+              <a href="#" title="Speakers">Speakers</a>
+            </li>
+            <li class="cat-list-item">
+              <a href="#" title="Memory Cards">Memory Cards</a>
+            </li>
+          </ul>
+
+        </div>
+    </div>
+    
+    <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
+      <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">
+            <img src="images/main-logo.png" class="logo">
+          </a>
+          <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <svg class="navbar-icon">
+              <use xlink:href="#navbar-icon"></use>
+            </svg>
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
+            <div class="offcanvas-header px-4 pb-0">
+              <a class="navbar-brand" href="index.html">
+                <img src="images/main-logo.png" class="logo">
+              </a>
+              <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link me-4 active" href="#billboard">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="#company-services">Services</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="#mobile-products">Products</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="#smart-watches">Phones</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="#yearly-sale">Sale</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="#latest-blog">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" href="#contact">Contact</a>
+                </li>
+                
+                <li class="nav-item">
+                  <div class="user-items ps-5">
+                    <ul class="d-flex justify-content-end list-unstyled">
+                     
+                      <li class="pe-3">
+                        <a href="#">
+                          <svg class="user">
+                            <use xlink:href="#user"></use>
+                          </svg>
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <section id="billboard" class="position-relative overflow-hidden bg-light-blue">
+      <div class="swiper main-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="container">
+              <div class="row d-flex align-items-center">
+                <div class="col-md-6">
+                  <div class="banner-content">
+                    <h1 class="display-2 text-uppercase text-dark pb-5">Your Products Are Great.</h1>
+                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="image-holder">
+                    <img src="https://images.unsplash.com/photo-1488509082528-cefbba5ad692?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGhvbmV8ZW58MHx8MHx8fDA%3D" alt="banner" height="600px" width="800px" style="border-radius: 20%;">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="container">
+              <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-md-6">
+                  <div class="banner-content">
+                    <h1 class="display-2 text-uppercase text-dark pb-5">Technology Hack You Won't Get</h1>
+                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="image-holder">
+                    <img src="images/banner-image.png" alt="banner">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-icon swiper-arrow swiper-arrow-prev">
+        <svg class="chevron-left">
+          <use xlink:href="#chevron-left" />
+        </svg>
+      </div>
+      <div class="swiper-icon swiper-arrow swiper-arrow-next">
+        <svg class="chevron-right">
+          <use xlink:href="#chevron-right" />
+        </svg>
+      </div>
+    </section>
+    <section id="company-services" class="padding-large">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 pb-3">
+            <div class="icon-box d-flex">
+              <div class="icon-box-icon pe-3 pb-3">
+                <svg class="cart-outline">
+                  <use xlink:href="#cart-outline" />
+                </svg>
+              </div>
+              <div class="icon-box-content">
+                <h3 class="card-title text-uppercase text-dark">Free delivery</h3>
+                <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 pb-3">
+            <div class="icon-box d-flex">
+              <div class="icon-box-icon pe-3 pb-3">
+                <svg class="quality">
+                  <use xlink:href="#quality" />
+                </svg>
+              </div>
+              <div class="icon-box-content">
+                <h3 class="card-title text-uppercase text-dark">Quality guarantee</h3>
+                <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 pb-3">
+            <div class="icon-box d-flex">
+              <div class="icon-box-icon pe-3 pb-3">
+                <svg class="price-tag">
+                  <use xlink:href="#price-tag" />
+                </svg>
+              </div>
+              <div class="icon-box-content">
+                <h3 class="card-title text-uppercase text-dark">Daily offers</h3>
+                <p>Amet consectetur adipi elit loreme ipsum dolor sit.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 pb-3">
+            <div class="icon-box d-flex">
+              <div class="icon-box-icon pe-3 pb-3">
+                <svg class="shield-plus">
+                  <use xlink:href="#shield-plus" />
+                </svg>
+              </div>
+              <div class="icon-box-content">
+                <h3 class="card-title text-uppercase text-dark">100% secure payment</h3>
+                <p>Rem Lopsum dolor sit amet, consectetur adipi elit.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="mobile-products" class="product-store position-relative padding-large no-padding-top">
+      <div class="container">
+        <div class="row">
+          <div class="display-header d-flex justify-content-between pb-3">
+            <h2 class="display-7 text-dark text-uppercase">Mobile Products</h2>
+            <div class="btn-right">
+              <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+            </div>
+          </div>
+          <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item1.jpg" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 10</a>
+                    </h3>
+                    <span class="item-price text-primary">₹78000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item2.jpg" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 11</a>
+                    </h3>
+                    <span class="item-price text-primary">₹98000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item3.jpg" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 8</a>
+                    </h3>
+                    <span class="item-price text-primary">₹65000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item4.jpg" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 13</a>
+                    </h3>
+                    <span class="item-price text-primary">₹103000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item5.jpg" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 12</a>
+                    </h3>
+                    <span class="item-price text-primary">₹60000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination position-absolute text-center"></div>
+    </section>
+    <section id="smart-watches" class="product-store padding-large position-relative">
+      <div class="container">
+        <div class="row">
+          <div class="display-header d-flex justify-content-between pb-3">
+            <h2 class="display-7 text-dark text-uppercase">Android Phones</h2>
+            <div class="btn-right">
+              <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+            </div>
+          </div>
+          <div class="swiper product-watch-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/mobile/2/s/7/-original-imagmg6gktts6sfy.jpeg?q=90" alt="product-item" class="img-fluid" height="200px">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Samsung Phone</a>
+                    </h3>
+                    <span class="item-price text-primary">₹30000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide" >
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="https://oasis.opstatics.com/content/dam/oasis/page/press-photos/10t/green/10T-1.png" alt="product-item" class="img-fluid" >
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">One Plus Phone</a>
+                    </h3>
+                    <span class="item-price text-primary">₹40000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="data:image/jpeg;base64,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" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Vivo Phone</a>
+                    </h3>
+                    <span class="item-price text-primary">₹20000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="data:image/jpeg;base64,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" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Oppo Phone</a>
+                    </h3>
+                    <span class="item-price text-primary">₹40000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item10.jpg" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">black watch</a>
+                    </h3>
+                    <span class="item-price text-primary">₹30000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination position-absolute text-center"></div>
+    </section>
+    <section id="yearly-sale" class="bg-light-blue overflow-hidden mt-5 padding-xlarge" style="background-image: url('images/single-image1.png');background-position: right; background-repeat: no-repeat;">
+      <div class="row d-flex flex-wrap align-items-center">
+        <div class="col-md-6 col-sm-12">
+          <div class="text-content offset-4 padding-medium">
+            <h3>10% off</h3>
+            <h2 class="display-2 pb-5 text-uppercase text-dark">New year sale</h2>
+            <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Sale</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          
+        </div>
+      </div>
+    </section>
+    <section id="latest-blog" class="padding-large">
+      <div class="container">
+        <div class="row">
+          <div class="display-header d-flex justify-content-between pb-3">
+            <h2 class="display-7 text-dark text-uppercase">Latest Posts</h2>
+            <div class="btn-right">
+              <a href="blog.html" class="btn btn-medium btn-normal text-uppercase">Read Blog</a>
+            </div>
+          </div>
+          <div class="post-grid d-flex flex-wrap justify-content-between">
+            <div class="col-lg-4 col-sm-12">
+              <div class="card border-none me-3">
+                <div class="card-image">
+                  <img src="images/post-item1.jpg" alt="" class="img-fluid">
+                </div>
+              </div>
+              <div class="card-body text-uppercase">
+                <div class="card-meta text-muted">
+                  <span class="meta-date">feb 22, 2023</span>
+                  <span class="meta-category">- Gadgets</span>
+                </div>
+                <h3 class="card-title">
+                  <a href="#">Get some cool gadgets in 2023</a>
+                </h3>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+              <div class="card border-none me-3">
+                <div class="card-image">
+                  <img src="images/post-item2.jpg" alt="" class="img-fluid">
+                </div>
+              </div>
+              <div class="card-body text-uppercase">
+                <div class="card-meta text-muted">
+                  <span class="meta-date">feb 25, 2023</span>
+                  <span class="meta-category">- Technology</span>
+                </div>
+                <h3 class="card-title">
+                  <a href="#">Technology Hack You Won't Get</a>
+                </h3>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+              <div class="card border-none me-3">
+                <div class="card-image">
+                  <img src="images/post-item3.jpg" alt="" class="img-fluid">
+                </div>
+              </div>
+              <div class="card-body text-uppercase">
+                <div class="card-meta text-muted">
+                  <span class="meta-date">feb 22, 2023</span>
+                  <span class="meta-category">- Camera</span>
+                </div>
+                <h3 class="card-title">
+                  <a href="#">Top 10 Small Camera In The World</a>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contact">
+      <!--Section: Contact v.2-->
+<section class="mb-4">
+
+  <!--Section heading-->
+  <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+  <!--Section description-->
+  <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
+      a matter of hours to help you.</p>
+
+  <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-9 mb-md-0 mb-5 mx-auto">
+          <form id="contact-form" name="contact-form">
+
+              <!--Grid row-->
+              <div class="row mx-auto">
+
+                  <!--Grid column-->
+                  <div class="col-md-12">
+                      <div class="md-form mb-0">
+                        <label for="name" class="">Your name</label>
+                          <input type="text" id="name" name="name" class="form-control">
+                          
+                      </div>
+                  </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-md-12">
+                      <div class="md-form mb-0">
+                        <label for="email" class="">Your email</label>
+                          <input type="text" id="email" name="email" class="form-control">
+                   
+                      </div>
+                  </div>
+                  <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+              <!--Grid row-->
+              <div class="row">
+                  <div class="col-md-0">
+                      <div class="md-form mb-0">
+                        <label for="subject" class="">Subject</label>
+                          <input type="text" id="subject" name="subject" class="form-control">
+                       
+                      </div>
+                  </div>
+              </div>
+              <!--Grid row-->
+
+              <!--Grid row-->
+              <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-md-12">
+
+                      <div class="md-form">
+                        <label for="message">Your message</label>
+                          <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                        
+                      </div>
+
+                  </div>
+              </div>
+              <!--Grid row-->
+
+          </form>
+
+          <div class="text-center text-md-left">
+              <a class="btn btn-primary mt-4" >Send</a>
+          </div>
+          <div class="status"></div>
+      </div>
+  </div>
+
+</section>
+<!--Section: Contact v.2-->
+    </section>
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+        <p class="text-center text-muted">&copy; 2021 Company, Inc</p>
+      </footer>
+    </div>
+   
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+  </body>
+</html>
