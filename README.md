@@ -14,9 +14,7 @@
 ## Tasks Overview:
 
 Task 1: 
-Responsive Landing Page
+E-Commerce Website
 
-Create a responsive landing page for a fictional product using HTML, CSS, and JavaScript.
-Focus on layout, responsiveness, and user experience.
-
-Task 2: 
+Build an e-commerce website where users can browse products, add items to
+a shopping cart, and proceed to checkout.
