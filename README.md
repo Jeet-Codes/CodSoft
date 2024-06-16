@@ -18,3 +18,6 @@ E-Commerce Website
 
 Build an e-commerce website where users can browse products, add items to
 a shopping cart, and proceed to checkout.
+The site features a sleek design, intuitive navigation, and a responsive layout 
+ensuring a seamless shopping experience. I've implemented key e-commerce functionalities, 
+including product listings, a shopping cart, and a checkout process.
